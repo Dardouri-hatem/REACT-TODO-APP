@@ -22,8 +22,10 @@ class FormToDo extends Component {
         e.preventDefault()
         this.setState({
             item : this.state.item.concat(this.state.input),
-            
+
+            input:""
         })
+
      }
 
     handleRemove(id){
@@ -39,10 +41,10 @@ class FormToDo extends Component {
     render() {
         return (
             <div>
-                <form class="container" onSubmit={this.handleAddItem.bind(this)}>
+                <form class="container" onSubmit={this.handleAddItem}>
                     <h1>To-Do App!</h1>
                     <h3>add new To-Do</h3>
-                    <input class="txt" type="text" placeholder="Enter new task" onChange={this.handleUpdateInput} />
+                    <input class="txt" type="text" value = {this.state.input}placeholder="Enter new task" onChange={this.handleUpdateInput} />
                     <button id='add-btn' onClick={this.handleAddItem.bind(this)}> Add </button>
                 </form>
                  <p className="paragraph">Let's get some work done</p>
