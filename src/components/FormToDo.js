@@ -1,63 +1,73 @@
-import React, { Component } from 'react'
-import "./ToDoStyle.css"
-import ToDo from './ToDo'
-
+import React, { Component } from "react";
+import "./ToDoStyle.css";
+import ToDo from "./ToDo";
 
 class FormToDo extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            input: "",
-            item :[],
-        }
-    }
+  state = {
+    input: "",
+    items: []
+  };
 
-    handleUpdateInput = (e) => {
-        this.setState({
-            input: e.target.value,
-        })
-    }
-    
-    handleAddItem = (e) => { 
-        e.preventDefault()
-        this.setState({
-            item : this.state.item.concat(this.state.input),
+  handleUpdateInput = e => {
+    this.setState({
+      input: e.target.value
+    });
+  };
 
-            input:""
-        })
+  handleAddItem = e => {
+    e.preventDefault();
+    this.state.input &&
+      this.setState({
+        items: this.state.items.concat({
+          text: this.state.input,
+          done: false,
+          class: "did-it"
+        }),
 
-     }
+        input: ""
+      });
+  };
 
-    handleRemove(id){
-        console.log(this.state.item)
-        this.setState({
-            item: this.state.item.map((el,i)=> (i == id)?el="":el),
-        })
-        console.log(this.state.item)
+  handleDid = id => {
+    this.setState({
+      items: this.state.items.map((item, i) =>
+        i === id ? { ...item, done: !item.done } : item
+      )
+    });
+  };
 
-    }
+  handleRemove = id => {
+    this.setState({
+      items: this.state.items.filter((el, i) => i !== id)
+    });
+  };
 
-    
-    render() {
-        return (
-            <div>
-                <form class="container" onSubmit={this.handleAddItem}>
-                    <h1>To-Do App!</h1>
-                    <h3>add new To-Do</h3>
-                    <input class="txt" type="text" value = {this.state.input}placeholder="Enter new task" onChange={this.handleUpdateInput} />
-                    <button id='add-btn' onClick={this.handleAddItem.bind(this)}> Add </button>
-                </form>
-                 <p className="paragraph">Let's get some work done</p>
-                <ToDo Remove={this.handleRemove.bind(this)} item={this.state.item} />
-
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <form className="container" onSubmit={this.handleAddItem}>
+          <h1>To-Do App!</h1>
+          <h3>add new To-Do</h3>
+          <input
+            className="txt"
+            type="text"
+            value={this.state.input}
+            placeholder="Enter new task"
+            onChange={this.handleUpdateInput}
+          />
+          <button id="add-btn" onClick={this.handleAddItem}>
+            Add
+          </button>
+        </form>
+        <p className="paragraph">Let's get some work done</p>
+        <ToDo
+          Remove={this.handleRemove}
+          items={this.state.items}
+          handleDid={this.handleDid}
+        />
+      </div>
+    );
+  }
 }
 
-export default FormToDo
-
-
-
-
-
+export default FormToDo;

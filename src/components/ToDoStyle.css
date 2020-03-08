@@ -66,20 +66,19 @@
     font-size: 26px;
 }
 .item{
-    text-decoration: none;
-    border: none;
     width: 50%;
     font-size: 22px;
     margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: lightgrey;
 }
-.item.active{
+
+.text-line{
     text-decoration: line-through;
 }
-.complete-btn.active{
-   background-color: lightgreen;
-   text-transform: uppercase;
-   
-}
+
 li{
     display: flex;
     justify-content: baseline;
